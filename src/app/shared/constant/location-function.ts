@@ -1,0 +1,5 @@
+export enum LOCATION_FUNCTION {
+  'AIRPORT',
+  'RAIL_TERMINAL',
+  'SEAPORT'
+}
