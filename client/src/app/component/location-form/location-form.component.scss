@@ -20,4 +20,14 @@
       margin-right: 20px;
     }
   }
+
+  &.ng-dirty,
+  &.ng-touched {
+    .ui-inputtext.ng-invalid:enabled,
+    .ui-inputtext.ng-invalid,
+    .ng-invalid .ui-dropdown {
+      border: 1px solid #a80000;
+    }
+  }
+
 }

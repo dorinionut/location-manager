@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {TooltipModule} from 'primeng/tooltip';
+import {ToastModule} from 'primeng/toast';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +20,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { LocationFormComponent } from './component/location-form/location-form.component';
 import { HomeViewComponent } from './view/home/home.component';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -43,9 +45,11 @@ import { HomeViewComponent } from './view/home/home.component';
     DropdownModule,
     InputTextModule,
     DynamicDialogModule,
-    TooltipModule
+    TooltipModule,
+    ToastModule
   ],
   providers: [
+    MessageService
   ],
   entryComponents: [
     LocationFormComponent

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ILocation } from '@app/model/location.model';
 import { LocationService } from '@app/service/location.service';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/api';
+import { DynamicDialogConfig, DynamicDialogRef, MessageService } from 'primeng/api';
 import { LOCATION_FUNCTION } from '@app/constant/location-function';
 import { CONTINENT } from '@app/constant/continent.enum';
 import { SearchFacade } from '@app/store/search.facade';
@@ -25,6 +25,7 @@ export class LocationFormComponent implements OnInit {
     public config: DynamicDialogConfig,
     public dialogRef: DynamicDialogRef,
     private formBuilder: FormBuilder,
+    private messageService: MessageService,
     private locationService: LocationService,
     private searchFacade: SearchFacade
   ) { }
@@ -104,10 +105,14 @@ export class LocationFormComponent implements OnInit {
   }
 
   save() {
+    this.locationForm.updateValueAndValidity();
+    this.locationForm.markAsTouched();
+
     if (this.locationForm.valid) {
 
       const newLocation = Object.assign({}, this.location, this.locationForm.value);
 
+      deleteEmptyKeys(newLocation);
       deleteEmptyKeys(newLocation.address);
 
       newLocation.normalizedName = newLocation.name.normalize();
@@ -117,8 +122,14 @@ export class LocationFormComponent implements OnInit {
           .update(newLocation)
           .subscribe(location => {
             this.location = location;
-
             this.searchFacade.updateResult(location);
+
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Location updated',
+              detail: `${location.name} was updated sucessfully.`});
+
+            this.dialogRef.close();
           });
       } else {
         this.locationService
@@ -126,6 +137,14 @@ export class LocationFormComponent implements OnInit {
           .subscribe(location => {
             this.location = location;
             this.updateMode = true;
+
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Location saved',
+              detail: `${location.name} was saved sucessfully.`
+            });
+
+            this.dialogRef.close();
           });
       }
     }
