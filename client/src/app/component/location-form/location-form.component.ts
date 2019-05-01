@@ -6,7 +6,7 @@ import { DynamicDialogConfig, DynamicDialogRef, MessageService } from 'primeng/a
 import { LOCATION_FUNCTION } from '@app/constant/location-function';
 import { CONTINENT } from '@app/constant/continent.enum';
 import { SearchFacade } from '@app/store/search.facade';
-import { deleteEmptyKeys, createDropdownOptions } from '../util/helper';
+import { deleteEmptyKeys, createDropdownOptions } from '@app/util/helper';
 
 @Component({
   selector: 'app-location-form',

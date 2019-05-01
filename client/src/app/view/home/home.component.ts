@@ -8,6 +8,7 @@ import { LOCATION_FUNCTION } from '@app/constant/location-function';
 import { SearchFacade } from '@app/store/search.facade';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { createDropdownOptions } from '@app/util/helper';
 
 @Component({
   selector: 'app-home',
@@ -32,11 +33,7 @@ export class HomeViewComponent implements OnInit {
   ngOnInit() {
     this.locations = this.searchFacade.getResults();
 
-    this.locationFunctions = [
-      {label: 'Airport', value: LOCATION_FUNCTION[LOCATION_FUNCTION.AIRPORT]},
-      {label: 'Rail terminal', value: LOCATION_FUNCTION[LOCATION_FUNCTION.RAIL_TERMINAL]},
-      {label: 'Seaport', value: LOCATION_FUNCTION[LOCATION_FUNCTION.SEAPORT]}
-    ];
+    this.locationFunctions = createDropdownOptions(LOCATION_FUNCTION);
   }
 
   openLocationForm(location) {
