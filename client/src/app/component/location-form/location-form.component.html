@@ -1,73 +1,70 @@
-<form [formGroup]="locationForm">
-  
-  <label>
-    Name*
-    <input type="text" pInputText formControlName="name" maxlength="60" />
-  </label>
 
-  <div formGroupName="coordinates">
-    <label>
-      Latitude*
-      <input type="number" pInputText formControlName="latitudeInDegrees" max="90" min="-90" />
-    </label>
-  
-    <label>
-      Longitude*
-      <input type="number" pInputText formControlName="longitudeInDegrees" max="180" min="-180" />
-    </label>
-  </div>
-
-  <div formGroupName="address">
-    
-    <label>
-      Continent*
+<form [formGroup]="locationForm" class="location-form">
+  <div class="p-grid">
+    <div class="p-col-12">
+      <h2>Location details</h2>
+      <label> Name*</label>
+      <input type="text" pInputText formControlName="name" maxlength="60" />
+    </div>
+    <div class="p-col-12" formGroupName="coordinates">
+      <h3>Coordinates</h3>
+      <div class="p-grid">
+        <div class="p-col-6">
+          <label>Latitude*</label>
+          <input type="number" pInputText formControlName="latitudeInDegrees" max="90" min="-90" />
+        </div>
+        <div class="p-col-6">
+          <label>Longitude*</label>
+          <input type="number" pInputText formControlName="longitudeInDegrees" max="180" min="-180" />
+        </div>
+      </div>
+    </div>
+    <div class="p-col-12" formGroupName="address">
+      <h3>Address</h3>
+      <div class="p-grid">
+        <div class="p-col-12">
+          <label>Continent*</label>
+          <p-dropdown
+          [options]="continentList"
+          [style]="{'width':'100%'}"
+          formControlName="continent"
+          placeholder="Select a continent"
+          ></p-dropdown>
+        </div>
+        <div class="p-col-6">
+          <label>Country*</label>
+          <input type="text" pInputText formControlName="country" maxlength="2" minlength="2" />
+        </div>
+        <div class="p-col-6">
+          <label>City*</label>
+          <input type="text" pInputText formControlName="city" maxlength="60" />
+        </div>
+        <div class="p-col-8">
+          <label>Street</label>
+          <input type="text" pInputText formControlName="streetName" />
+        </div>
+        <div class="p-col-4">
+          <label>Number</label>
+          <input type="text" pInputText formControlName="streetNumber" />
+        </div>
+        <div class="p-col-6">
+          <label>Postal code</label>
+          <input type="text" pInputText formControlName="postalCode" />
+        </div>
+      </div>
+    </div>
+    <div class="p-col-12">
+      <label>Function</label>
       <p-dropdown
-      [options]="continentList"
-      [style]="{'width':'100%'}"
-      formControlName="continent"
-      placeholder="Select a continent"
-    ></p-dropdown>
-    </label>
-
-    <label>
-      Country*
-      <input type="text" pInputText formControlName="country" maxlength="2" minlength="2" />
-    </label>
-
-    <label>
-      City*
-      <input type="text" pInputText formControlName="city" maxlength="60" />
-    </label>
-
-    <label>
-      Street
-      <input type="text" pInputText formControlName="streetName" />
-    </label>
-
-    <label>
-      Number
-      <input type="text" pInputText formControlName="streetNumber" />
-    </label>
-
-    <label>
-      Postal code
-      <input type="text" pInputText formControlName="postalCode" />
-    </label>
+        [options]="functionList"
+        [style]="{'width':'100%'}"
+        formControlName="function"
+        placeholder="Select a function"
+      ></p-dropdown>
+    </div>
+    <div class="p-col-12 p-justify-end">
+      <p-button label="Save" (onClick)="save($event)"></p-button>
+      <p-button label="Cancel" (onClick)="cancel()" styleClass="ui-button-secondary"></p-button>
+    </div>
   </div>
-
-  <label>
-    Function
-    <p-dropdown
-      [options]="functionList"
-      [style]="{'width':'100%'}"
-      formControlName="function"
-      placeholder="Select a function"
-    ></p-dropdown>
-  </label>
-
-  <div>
-    <p-button label="Cancel" (onClick)="cancel()" styleClass="ui-button-secondary"></p-button>
-    <p-button label="Save" (onClick)="save($event)"></p-button>
-  </div>
-
 </form>

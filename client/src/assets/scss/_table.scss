@@ -10,6 +10,13 @@
   
   .location-table {
     tr {
+      th {
+        .ui-inputtext {
+          width: 100%;
+        }
+      }
+    }
+    tr {
       td {
         overflow: hidden;
         text-overflow: ellipsis;
