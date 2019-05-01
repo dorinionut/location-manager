@@ -36,7 +36,7 @@ export class HomeViewComponent implements OnInit {
     this.locationFunctions = createDropdownOptions(LOCATION_FUNCTION);
   }
 
-  openLocationForm(location) {
+  openLocationForm(location?: ILocation) {
     this.dialogService.open(LocationFormComponent, {
       data: {location},
       showHeader: false
