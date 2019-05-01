@@ -42,7 +42,7 @@
     </tr>
     <tr>
       <th>
-        <input pInputText type="text" placeholder="Filter by ID" (input)="locationsList.filter($event.target.value, 'id', 'in')">
+        <input id="filter-id" pInputText type="text" placeholder="Filter by ID" (input)="locationsList.filter($event.target.value, 'id', 'in')">
       </th>
       <th>
         <input pInputText type="text" placeholder="Filter by name" (input)="locationsList.filter($event.target.value, 'name', 'in')">
