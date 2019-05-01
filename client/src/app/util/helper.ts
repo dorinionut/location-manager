@@ -1,5 +1,6 @@
 import { TitleCasePipe } from '@angular/common';
 import { SelectItem } from 'primeng/api';
+import { ILocation } from '@app/model/location.model';
 
 export function deleteEmptyKeys(object = {}) {
   for (const key in object) {
@@ -27,4 +28,13 @@ export function createDropdownOptions(optionsEnum): SelectItem[] {
   }
 
   return optionsList;
+}
+
+export function getLocationId(location: ILocation): number {
+  return parseInt(location.resourceId.replace(/.+\/(\d+)$/g, '$1'), 10);
+}
+
+export function mapLocationId(location: ILocation): ILocation {
+  location.id = getLocationId(location);
+  return location;
 }
