@@ -20,7 +20,7 @@ export class LocationService {
   add(location: ILocation): Observable<ILocation> {
     return this.http.post<ILocation>(`${this.server}`, location)
       .pipe(
-        map(this.mapLocationId),
+        map(result => this.mapLocationId(result)),
         catchError(this.errorHandler)
       );
   }
@@ -28,24 +28,24 @@ export class LocationService {
   getById(id: number): Observable<ILocation> {
     return this.http.get<ILocation>(`${this.server}/${id}`)
       .pipe(
-        map(this.mapLocationId),
+        map(result => this.mapLocationId(result)),
         catchError(this.errorHandler));
   }
 
   search(params?: ISearchParams): Observable<ILocation[]> {
     return this.http.get<ILocation[]>(`${this.server}/`, {params})
       .pipe(
-        map(result => result.map(this.mapLocationId)),
+        map(result => result.map(location => this.mapLocationId(location))),
         catchError(this.errorHandler));
   }
 
   update(location: ILocation): Observable<ILocation> {
-    const id = parseInt(location.resourceId.replace(/.+\/(\d+)$/g, '$1'), 10);
+    const id = this.getLocationId(location);
     delete location.id;
 
     return this.http.put<ILocation>(`${this.server}/${id}`, location)
       .pipe(
-        map(this.mapLocationId),
+        map(result => this.mapLocationId(result)),
         catchError(this.errorHandler)
       );
   }
@@ -54,8 +54,12 @@ export class LocationService {
     return throwError(error);
   }
 
+  private getLocationId(location: ILocation): number {
+    return parseInt(location.resourceId.replace(/.+\/(\d+)$/g, '$1'), 10);
+  }
+
   private mapLocationId(location: ILocation): ILocation {
-    location.id = parseInt(location.resourceId.replace(/.+\/(\d+)$/g, '$1'), 10);
+    location.id = this.getLocationId(location);
     return location;
   }
 }

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {DialogService, LazyLoadEvent} from 'primeng/api';
-import { ILocation } from '@app/shared/model/location.model';
-import { LocationService } from '@app/shared/service/location.service';
+import { ILocation } from '@app/model/location.model';
+import { LocationService } from '@app/service/location.service';
 import { LocationFormComponent } from '../../component/location-form/location-form.component';
-import { ISearchParams } from '@app/shared/model/search-params.model';
-import { LOCATION_FUNCTION } from '@app/shared/constant/location-function';
-import { SearchFacade } from '@app/core/store/search.facade';
+import { ISearchParams } from '@app/model/search-params.model';
+import { LOCATION_FUNCTION } from '@app/constant/location-function';
+import { SearchFacade } from '@app/store/search.facade';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -30,10 +30,7 @@ export class HomeViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.locations = this.searchFacade.getResults().pipe(map(results => {
-      console.log(results);
-      return results;
-    }));
+    this.locations = this.searchFacade.getResults();
 
     this.locationFunctions = [
       {label: 'Airport', value: LOCATION_FUNCTION[LOCATION_FUNCTION.AIRPORT]},

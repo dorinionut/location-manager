@@ -6,28 +6,50 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CoreModule } from './core/core.module';
 import { environment } from '@env/environment';
 import { StoreModule } from '@ngrx/store';
-import { SearchReducer } from './core/store/search.reducer';
+import { SearchReducer } from './store/search.reducer';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { LocationFormComponent } from './component/location-form/location-form.component';
+import { HeaderComponent } from './component/header/header.component';
+import { HomeViewComponent } from './view/home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    HomeViewComponent,
+    LocationFormComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    CommonModule,
+    ReactiveFormsModule,
     AppRoutingModule,
-    CoreModule,
     StoreModule.forRoot({search: SearchReducer}),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
+    TableModule,
+    ButtonModule,
+    DropdownModule,
+    InputTextModule,
+    DynamicDialogModule
   ],
-  providers: [],
+  providers: [
+  ],
+  entryComponents: [
+    LocationFormComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

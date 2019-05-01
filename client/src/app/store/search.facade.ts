@@ -2,8 +2,8 @@ import { Store } from '@ngrx/store';
 import { ISearchState } from './search.state';
 import { selectSearchResults, selectSearchParams } from './search.selectors';
 import * as SearchActions from './search.actions';
-import { ILocation } from '@app/shared/model/location.model';
-import { ISearchParams } from '@app/shared/model/search-params.model';
+import { ILocation } from '@app/model/location.model';
+import { ISearchParams } from '@app/model/search-params.model';
 import { Injectable } from '@angular/core';
 
 @Injectable({

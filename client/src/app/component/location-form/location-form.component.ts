@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ILocation } from '@app/shared/model/location.model';
-import { LocationService } from '@app/shared/service/location.service';
+import { ILocation } from '@app/model/location.model';
+import { LocationService } from '@app/service/location.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/api';
-import { LOCATION_FUNCTION } from '@app/shared/constant/location-function';
-import { TitleCasePipe } from '@angular/common';
-import { CONTINENT } from '@app/shared/constant/continent.enum';
-import { SearchFacade } from '@app/core/store/search.facade';
+import { LOCATION_FUNCTION } from '@app/constant/location-function';
+import { CONTINENT } from '@app/constant/continent.enum';
+import { SearchFacade } from '@app/store/search.facade';
+import { deleteEmptyKeys, createDropdownOptions } from '../util/helper';
 
 @Component({
   selector: 'app-location-form',
@@ -30,13 +30,16 @@ export class LocationFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const titlePipe = new TitleCasePipe();
 
     this.location = this.config.data.location;
 
     if (this.location) {
       this.updateMode = true;
     }
+
+    this.functionList = createDropdownOptions(LOCATION_FUNCTION).sort();
+    this.continentList = createDropdownOptions(CONTINENT).sort();
+
     this.locationForm = this.formBuilder.group({
       name: [this.location.name, [
         Validators.minLength(1),
@@ -75,39 +78,10 @@ export class LocationFormComponent implements OnInit {
       }),
       function: [this.location.function]
     });
-
-    for (const fkey in LOCATION_FUNCTION) {
-      if (LOCATION_FUNCTION.hasOwnProperty(fkey)) {
-        const func = LOCATION_FUNCTION[fkey];
-        this.functionList.push({
-          label: titlePipe.transform(func.replace('_', ' ')),
-          value: func
-        });
-      }
-    }
-
-    for (const ckey in CONTINENT) {
-      if (CONTINENT.hasOwnProperty(ckey)) {
-        const continent = CONTINENT[ckey];
-        this.continentList.push({
-          label: titlePipe.transform(continent.replace('_', ' ')),
-          value: continent
-        });
-      }
-    }
-
-    this.functionList.sort();
-    this.continentList.sort();
   }
 
   cancel() {
     this.dialogRef.close();
-  }
-
-  getLocation() {
-    this.locationService
-      .getById(this.location.id)
-      .subscribe(location => this.location = location);
   }
 
   save() {
@@ -115,13 +89,7 @@ export class LocationFormComponent implements OnInit {
 
       const newLocation = Object.assign({}, this.location, this.locationForm.value);
 
-      for (const key in newLocation.address) {
-        if (newLocation.address.hasOwnProperty(key)) {
-          if (newLocation.address[key] === '') {
-            delete newLocation.address[key];
-          }
-        }
-      }
+      deleteEmptyKeys(newLocation.address);
 
       newLocation.normalizedName = newLocation.name.normalize();
 
@@ -133,12 +101,15 @@ export class LocationFormComponent implements OnInit {
 
             this.searchFacade.updateResult(location);
           });
-      }
-      else {
+      } else {
         this.locationService
           .add(newLocation)
-          .subscribe(location => this.location = location);
+          .subscribe(location => {
+            this.location = location;
+            this.updateMode = true;
+          });
       }
     }
   }
 }
+

@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
-import { ILocation } from '@app/shared/model/location.model';
-import { ISearchParams } from '@app/shared/model/search-params.model';
+import { ILocation } from '@app/model/location.model';
+import { ISearchParams } from '@app/model/search-params.model';
 
 export enum SearchActionsTypes {
   LOAD_RESULTS = '[Search] Load locations',
