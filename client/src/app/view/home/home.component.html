@@ -22,7 +22,7 @@
   [value]="locations | async"
 >
   <ng-template pTemplate="header">
-    <tr>
+    <tr pTooltip="Hold Ctrl / Cmd to sort by multiple columns">
       <th pSortableColumn="id">
         <span>ID</span>
         <p-sortIcon field="id"></p-sortIcon>

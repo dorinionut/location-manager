@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import {TooltipModule} from 'primeng/tooltip';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -41,7 +42,8 @@ import { HomeViewComponent } from './view/home/home.component';
     ButtonModule,
     DropdownModule,
     InputTextModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    TooltipModule
   ],
   providers: [
   ],
