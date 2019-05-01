@@ -1,0 +1,19 @@
+<h1>Home</h1>
+<p-table [value]="locations | async">
+  <ng-template pTemplate="header">
+      <tr>
+          <th>Name</th>
+          <th>City</th>
+          <th>Country</th>
+          <th>Continent</th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-location>
+      <tr (click)="openLocation(location)">
+          <td>{{location.name}}</td>
+          <td>{{location.address.city}}</td>
+          <td>{{location.address.country}}</td>
+          <td>{{location.address.continent}}</td>
+      </tr>
+  </ng-template>
+</p-table>
