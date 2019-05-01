@@ -41,43 +41,62 @@ export class LocationFormComponent implements OnInit {
     this.continentList = createDropdownOptions(CONTINENT).sort();
 
     this.locationForm = this.formBuilder.group({
-      name: [this.location.name, [
+      name: ['', [
         Validators.minLength(1),
         Validators.maxLength(60),
         Validators.required
       ]],
       coordinates: this.formBuilder.group({
-        latitudeInDegrees: [this.location.coordinates.latitudeInDegrees, [
+        latitudeInDegrees: ['', [
           Validators.max(90),
           Validators.min(-90),
           Validators.required
         ]],
-        longitudeInDegrees: [this.location.coordinates.longitudeInDegrees, [
+        longitudeInDegrees: ['', [
           Validators.max(180),
           Validators.min(-180),
           Validators.required
         ]]
       }),
       address: this.formBuilder.group({
-        city: [this.location.address.city, [
+        city: ['', [
           Validators.minLength(1),
           Validators.maxLength(60),
           Validators.required
         ]],
-        country: [this.location.address.country, [
+        country: ['', [
           Validators.minLength(2),
           Validators.maxLength(2),
           Validators.required
         ]],
-        continent: [this.location.address.continent,
+        continent: ['',
           Validators.required
         ],
-        streetName: [this.location.address.streetName, Validators.required],
-        streetNumber: [this.location.address.streetNumber],
-        postalCode: [this.location.address.postalCode]
+        streetName: ['', Validators.required],
+        streetNumber: [''],
+        postalCode: ['']
       }),
-      function: [this.location.function]
+      function: ['']
     });
+
+    if (this.location) {
+      this.locationForm.setValue({
+        name: this.location.name || '',
+        coordinates: {
+          latitudeInDegrees: this.location.coordinates.latitudeInDegrees || '',
+          longitudeInDegrees: this.location.coordinates.longitudeInDegrees
+        },
+        address: {
+          continent: this.location.address.continent || '',
+          country: this.location.address.country || '',
+          city: this.location.address.city || '',
+          streetName: this.location.address.streetName || '',
+          streetNumber: this.location.address.streetNumber || '',
+          postalCode: this.location.address.postalCode || ''
+        },
+        function: this.location.function || ''
+      });
+    }
   }
 
   cancel() {
