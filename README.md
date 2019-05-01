@@ -30,15 +30,9 @@ Run
 ```
 cd client
 npm install
-```
-
-Go to the root folder of the project
-
-Run
-
-```
-cd server
+cd ../server
 npm install
+
 ```
 
 ## Building and starting the application
