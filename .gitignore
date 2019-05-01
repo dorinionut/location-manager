@@ -3,6 +3,8 @@
 # compiled output
 /client/dist
 /server/dist
+**/coverage
+**/*/package-lock.json
 /tmp
 /out-tsc
 # Only exists if Bazel was run
