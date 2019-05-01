@@ -28,11 +28,7 @@ Go to the root folder of the project.
 Run
 
 ```
-cd client
-npm install
-cd ../server
-npm install
-
+npm run setup
 ```
 
 ## Building and starting the application
@@ -42,11 +38,7 @@ Go to the root folder of the project.
 Run
 
 ```
-cd client
-npm run build
-cd ../server
 npm run start
-
 ```
 
 Open the browser and navigate to `http://localhost`.
@@ -58,7 +50,6 @@ Go to the root folder of the project.
 To execute the unit tests run:
 
 ```
-cd client
 npm run test
 ```
 
@@ -68,22 +59,16 @@ npm run test
 
 Go to the root folder of the project.
 
-To execute the E2E tests run:
+To execute the E2E tests first start the app:
 
 ```
-cd client
-npm run build
-cd ../server
 npm run start
-
 ```
 
-Open a new terminal inside the root folder of the project and run:
+**then** open a new terminal inside the root folder of the project and run:
 
 ```
-cd client
 npm run e2e
-
 ```
 
 ## Further help
