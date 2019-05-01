@@ -4,7 +4,7 @@ import { ISearchParams } from '../model/search-params.model';
 import { ILocation } from '../model/location.model';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { environment } from '@env/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,6 @@ export class LocationService {
   ) { }
 
   add(location: ILocation): Observable<ILocation> {
-    console.log(location);
-
     return this.http.post<ILocation>(`${this.server}`, location)
       .pipe(
         map(this.mapLocationId),

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ILocation } from 'src/app/shared/model/location.model';
-import { LocationService } from 'src/app/shared/service/location.service';
+import { ILocation } from '@app/shared/model/location.model';
+import { LocationService } from '@app/shared/service/location.service';
 import { switchMap } from 'rxjs/operators';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/api';
-import { LOCATION_FUNCTION } from 'src/app/shared/constant/location-function';
+import { LOCATION_FUNCTION } from '@app/shared/constant/location-function';
 import { TitleCasePipe } from '@angular/common';
-import { CONTINENT } from 'src/app/shared/constant/continent.enum';
+import { CONTINENT } from '@app/shared/constant/continent.enum';
 
 @Component({
   selector: 'app-location-form',

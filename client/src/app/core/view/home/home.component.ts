@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {DialogService, LazyLoadEvent} from 'primeng/api';
-import { ILocation } from 'src/app/shared/model/location.model';
-import { LocationService } from 'src/app/shared/service/location.service';
+import { ILocation } from '@app/shared/model/location.model';
+import { LocationService } from '@app/shared/service/location.service';
 import { LocationFormComponent } from '../../component/location-form/location-form.component';
-import { ISearchParams } from 'src/app/shared/model/search-params.model';
-import { LOCATION_FUNCTION } from 'src/app/shared/constant/location-function';
+import { ISearchParams } from '@app/shared/model/search-params.model';
+import { LOCATION_FUNCTION } from '@app/shared/constant/location-function';
+import { SearchFacade } from '@app/core/store/search.facade';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +17,7 @@ import { LOCATION_FUNCTION } from 'src/app/shared/constant/location-function';
 })
 export class HomeViewComponent implements OnInit {
 
-  public locations: ILocation[] = [];
+  public locations: Observable<ILocation[]>;
   public locationFunctions: any;
   public rowsPerPageOptions: number[] = [10, 25, 50, 100];
   private searchParams: ISearchParams = {};
@@ -22,10 +25,16 @@ export class HomeViewComponent implements OnInit {
 
   constructor(
     public dialogService: DialogService,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private searchFacade: SearchFacade
   ) { }
 
   ngOnInit() {
+    this.locations = this.searchFacade.getResults().pipe(map(results => {
+      console.log(results);
+      return results;
+    }));
+
     this.locationFunctions = [
       {label: 'Airport', value: LOCATION_FUNCTION[LOCATION_FUNCTION.AIRPORT]},
       {label: 'Rail terminal', value: LOCATION_FUNCTION[LOCATION_FUNCTION.RAIL_TERMINAL]},
@@ -73,8 +82,12 @@ export class HomeViewComponent implements OnInit {
       .search(this.searchParams)
       .subscribe(locations => {
         if (locations.length) {
-          this.locations = locations;
-          this.totalRecords += (locations.length === event.rows) ? this.locations.length : 0;
+          console.log(locations.length);
+          
+          this.searchFacade.loadResults(locations);
+          this.searchFacade.loadSearchParams(this.searchParams);
+
+          this.totalRecords += (locations.length === event.rows) ? locations.length : 0;
         }
       });
   }

@@ -12,7 +12,7 @@
   sortMode="multiple"
   tableStyleClass="location-table"
   [totalRecords]="totalRecords"
-  [value]="locations"
+  [value]="locations | async"
 >
   <ng-template pTemplate="header">
     <tr>
