@@ -8,10 +8,12 @@
 </div>
 <p-table
   #locationsList
+  [alwaysShowPaginator]="false"
   [customSort]="true"
   [lazy]="true"
   (onLazyLoad)="loadLocations($event)"
   [paginator]="true"
+  paginatorPosition="both"
   [resetPageOnSort]="true"
   [rowHover]="true"
   [rows]="rowsPerPageOptions[1]"
@@ -53,12 +55,12 @@
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-location>
-      <tr (click)="openLocationForm(location)">
-        <td>{{location.id}}</td>
-        <td>{{location.name}}</td>
-        <td>{{location.function}}</td>
-        <td>{{location.address.country}}</td>
-        <td>{{location.address.continent}}</td>
-      </tr>
+    <tr *ngIf="location" (click)="openLocationForm(location)">
+      <td>{{location.id}}</td>
+      <td>{{location.name}}</td>
+      <td>{{location.function}}</td>
+      <td>{{location.address.country}}</td>
+      <td>{{location.address.continent}}</td>
+    </tr>
   </ng-template>
 </p-table>

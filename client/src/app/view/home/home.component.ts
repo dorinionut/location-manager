@@ -77,10 +77,10 @@ export class HomeViewComponent implements OnInit {
     this.locationService
       .search(this.searchParams)
       .subscribe(locations => {
-        if (locations.length) {
-          this.searchFacade.loadResults(locations);
-          this.searchFacade.loadSearchParams(this.searchParams);
+        this.searchFacade.loadResults(locations);
+        this.searchFacade.loadSearchParams(this.searchParams);
 
+        if (locations.length) {
           this.totalRecords += (locations.length === event.rows) ? locations.length : 0;
         }
       });
