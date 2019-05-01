@@ -1,18 +1,67 @@
 # LocationManager
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+## What to expect?
 
-## Development server
+The project contains 2 parts:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Frontend - Angular 7
 
-## Code scaffolding
+The code for the Frontend part is in the **client** folder.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Middleware - NestJS 6
 
-## Build
+The reason why there is a middleware is to eliminate the **CORS** limitation imposed by Chrome browser. Even if you install extensions, it will not allow you to make all the requests.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+The middleware is also serving the **Angular** app so they run on the same port to avoid **CORS**.
+
+The code for the middleware is in the **server** folder.
+
+## Pre-requisites
+- Node ~ 11
+- Angular CLI @ 7.3.8
+- Chrome ~ 74
+
+## Setting up the project
+
+Go to the root folder of the project.
+
+Run
+
+```
+  cd client
+  npm install
+```
+
+Go to the root folder of the project
+
+Run
+
+```
+  cd server
+  npm install
+```
+
+## Building and starting the application
+
+Go to the root folder of the project.
+
+Run
+
+```
+  cd client
+  npm run build
+```
+
+Go to the root folder of the project.
+
+Run
+
+```
+  cd server
+  npm run start
+```
+
+Open the browser and navigate to `http://localhost`.
 
 ## Running unit tests
 
@@ -20,8 +69,10 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 ## Running end-to-end tests
 
+**!! Before running the E2E tests, you must build and start the application. The command for testing does NOT build the app and it does NOT start the server. The reason for this is that the tests fail because of the CORS limitation**
+
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
 ## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Contact me.
