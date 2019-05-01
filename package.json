@@ -1,0 +1,11 @@
+{
+  "name": "location-manager",
+  "version": "1.0.0",
+  "scripts": {
+    "setup": "cd client && npm install && cd ../server && npm install",
+    "start": "cd client && npm run build && cd ../server && npm start",
+    "test": "cd client && ng test --watch=false",
+    "e2e": "cd client && ng e2e"
+  },
+  "private": true
+}
