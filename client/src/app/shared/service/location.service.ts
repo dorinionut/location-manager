@@ -42,8 +42,6 @@ export class LocationService {
   update(location: ILocation): Observable<ILocation> {
     const id = parseInt(location.resourceId.replace(/.+\/(\d+)$/g, '$1'), 10);
     delete location.id;
-    delete location.resourceId;
-    delete location.version;
 
     return this.http.put<ILocation>(`${this.server}/${id}`, location)
       .pipe(

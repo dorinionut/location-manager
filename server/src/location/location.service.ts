@@ -31,8 +31,8 @@ export class LocationService {
         );
     }
 
-    updateLocation(location: any): Observable<AxiosResponse<any>> {
-        return this.http.post(`${this.url}`, location)
+    updateLocation(id: string, location: any): Observable<AxiosResponse<any>> {
+        return this.http.put(`${this.url}/${id}`, location)
         .pipe(
           map(result => result.data)
         );

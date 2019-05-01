@@ -45,12 +45,12 @@ export class LocationController {
       }));
   }
 
-  @Put('/:id')
+  @Put(':id')
   updateLocation(@Req() request: Request, @Res() response: Response, @Param() params) {
     return this.locationService
-      .updateLocation(request.body)
+      .updateLocation(params.id, request.body)
       .subscribe(result => {
-          response.send(result);
+        response.send(result);
       },
       (error => {
         response.statusCode = error.response.status;
