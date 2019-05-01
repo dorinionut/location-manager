@@ -82,8 +82,6 @@ export class HomeViewComponent implements OnInit {
       .search(this.searchParams)
       .subscribe(locations => {
         if (locations.length) {
-          console.log(locations.length);
-          
           this.searchFacade.loadResults(locations);
           this.searchFacade.loadSearchParams(this.searchParams);
 

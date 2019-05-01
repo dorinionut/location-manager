@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ILocation } from '@app/shared/model/location.model';
 import { LocationService } from '@app/shared/service/location.service';
-import { switchMap } from 'rxjs/operators';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/api';
 import { LOCATION_FUNCTION } from '@app/shared/constant/location-function';
 import { TitleCasePipe } from '@angular/common';
 import { CONTINENT } from '@app/shared/constant/continent.enum';
+import { SearchFacade } from '@app/core/store/search.facade';
 
 @Component({
   selector: 'app-location-form',
@@ -25,14 +25,16 @@ export class LocationFormComponent implements OnInit {
     public config: DynamicDialogConfig,
     public dialogRef: DynamicDialogRef,
     private formBuilder: FormBuilder,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private searchFacade: SearchFacade
   ) { }
 
   ngOnInit() {
     const titlePipe = new TitleCasePipe();
 
     this.location = this.config.data.location;
-    if(this.location) {
+
+    if (this.location) {
       this.updateMode = true;
     }
     this.locationForm = this.formBuilder.group({
@@ -109,8 +111,6 @@ export class LocationFormComponent implements OnInit {
   }
 
   save() {
-    console.log(this.locationForm);
-
     if (this.locationForm.valid) {
 
       const newLocation = Object.assign({}, this.location, this.locationForm.value);
@@ -128,7 +128,11 @@ export class LocationFormComponent implements OnInit {
       if (this.updateMode) {
         this.locationService
           .update(newLocation)
-          .subscribe(location => this.location = location);
+          .subscribe(location => {
+            this.location = location;
+
+            this.searchFacade.updateResult(location);
+          });
       }
       else {
         this.locationService
