@@ -17,13 +17,11 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { LocationFormComponent } from './component/location-form/location-form.component';
-import { HeaderComponent } from './component/header/header.component';
 import { HomeViewComponent } from './view/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     HomeViewComponent,
     LocationFormComponent
   ],

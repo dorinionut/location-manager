@@ -39,7 +39,7 @@ export class HomeViewComponent implements OnInit {
     ];
   }
 
-  openLocation(location) {
+  openLocationForm(location) {
     this.dialogService.open(LocationFormComponent, {
       data: {location},
       showHeader: false
@@ -67,8 +67,7 @@ export class HomeViewComponent implements OnInit {
     if (sortString !== this.searchParams.sort || Object.keys(event.filters).length > 0) {
       this.totalRecords = event.rows;
       this.searchParams.page = 0;
-    }
-    else {
+    } else {
       this.searchParams.page = event.first / event.rows;
     }
 

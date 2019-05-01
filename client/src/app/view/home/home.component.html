@@ -1,4 +1,11 @@
-<h1>Home</h1>
+<div class="p-grid">
+  <div class="p-col-8">
+    <h1>Location manager</h1>
+  </div>
+  <div class="p-col-4 p-col-align-end">
+    <p-button label="Add location" (onClick)="openLocationForm()" class="btn-add-location"></p-button>
+  </div>
+</div>
 <p-table
   #locationsList
   [customSort]="true"
@@ -46,7 +53,7 @@
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-location>
-      <tr (click)="openLocation(location)">
+      <tr (click)="openLocationForm(location)">
         <td>{{location.id}}</td>
         <td>{{location.name}}</td>
         <td>{{location.function}}</td>
