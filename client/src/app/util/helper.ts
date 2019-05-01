@@ -1,6 +1,7 @@
 import { TitleCasePipe } from '@angular/common';
 import { SelectItem } from 'primeng/api';
 import { ILocation } from '@app/model/location.model';
+import { FormGroup, FormArray, FormControl } from '@angular/forms';
 
 export function deleteEmptyKeys(object = {}) {
   for (const key in object) {
@@ -37,4 +38,16 @@ export function getLocationId(location: ILocation): number {
 export function mapLocationId(location: ILocation): ILocation {
   location.id = getLocationId(location);
   return location;
+}
+
+export function setAsTouched(group: FormGroup | FormArray) {
+  group.markAsTouched();
+
+  for (const controlName in group.controls) {
+    if (group.controls[controlName] instanceof FormControl) {
+      group.controls[controlName].markAsTouched();
+    } else {
+      setAsTouched(group.controls[controlName]);
+    }
+  }
 }
