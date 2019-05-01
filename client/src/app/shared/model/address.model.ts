@@ -4,7 +4,7 @@ export interface IAddress {
   city: string;
   country: string;
   continent: CONTINENT;
-  streetName?: string;
+  streetName: string;
   streetNumber?: string;
   postalCode?: string;
   administrativeLevel2?: string;

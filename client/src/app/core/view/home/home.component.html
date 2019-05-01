@@ -1,19 +1,57 @@
 <h1>Home</h1>
-<p-table [value]="locations | async">
+<p-table
+  #locationsList
+  [customSort]="true"
+  [lazy]="true"
+  (onLazyLoad)="loadLocations($event)"
+  [paginator]="true"
+  [resetPageOnSort]="true"
+  [rowHover]="true"
+  [rows]="rowsPerPageOptions[1]"
+  [rowsPerPageOptions]="rowsPerPageOptions"
+  sortMode="multiple"
+  tableStyleClass="location-table"
+  [totalRecords]="totalRecords"
+  [value]="locations"
+>
   <ng-template pTemplate="header">
-      <tr>
-          <th>Name</th>
-          <th>City</th>
-          <th>Country</th>
-          <th>Continent</th>
-      </tr>
+    <tr>
+      <th pSortableColumn="id">
+        <span>ID</span>
+        <p-sortIcon field="id"></p-sortIcon>
+      </th>
+      <th pSortableColumn="name">
+        <span>Name</span>
+        <p-sortIcon field="name"></p-sortIcon>
+      </th>
+      <th pSortableColumn="function">
+          <span>Function</span>
+          <p-sortIcon field="function"></p-sortIcon>
+        </th>
+      <th>Country</th>
+      <th>Continent</th>
+    </tr>
+    <tr>
+      <th>
+        <input pInputText type="text" placeholder="Filter by ID" (input)="locationsList.filter($event.target.value, 'id', 'in')">
+      </th>
+      <th>
+        <input pInputText type="text" placeholder="Filter by name" (input)="locationsList.filter($event.target.value, 'name', 'in')">
+      </th>
+      <th>
+        <p-dropdown [options]="locationFunctions" placeholder="Filter by function" [style]="{'width':'100%'}" (onChange)="locationsList.filter($event.value, 'function', 'equals')"></p-dropdown>
+      </th>
+      <th></th>
+      <th></th>
+    </tr>
   </ng-template>
   <ng-template pTemplate="body" let-location>
       <tr (click)="openLocation(location)">
-          <td>{{location.name}}</td>
-          <td>{{location.address.city}}</td>
-          <td>{{location.address.country}}</td>
-          <td>{{location.address.continent}}</td>
+        <td>{{location.id}}</td>
+        <td>{{location.name}}</td>
+        <td>{{location.function}}</td>
+        <td>{{location.address.country}}</td>
+        <td>{{location.address.continent}}</td>
       </tr>
   </ng-template>
 </p-table>

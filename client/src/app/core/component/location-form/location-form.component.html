@@ -1,4 +1,73 @@
+<form [formGroup]="locationForm">
+  
+  <label>
+    Name*
+    <input type="text" pInputText formControlName="name" maxlength="60" />
+  </label>
 
-{{location | json}}
-<button (click)="getLocation()">GetLocation</button>
-<button (click)="updateLocation()">UpdateLocation</button>
+  <div formGroupName="coordinates">
+    <label>
+      Latitude*
+      <input type="number" pInputText formControlName="latitudeInDegrees" max="90" min="-90" />
+    </label>
+  
+    <label>
+      Longitude*
+      <input type="number" pInputText formControlName="longitudeInDegrees" max="180" min="-180" />
+    </label>
+  </div>
+
+  <div formGroupName="address">
+    
+    <label>
+      Continent*
+      <p-dropdown
+      [options]="continentList"
+      [style]="{'width':'100%'}"
+      formControlName="continent"
+      placeholder="Select a continent"
+    ></p-dropdown>
+    </label>
+
+    <label>
+      Country*
+      <input type="text" pInputText formControlName="country" maxlength="2" minlength="2" />
+    </label>
+
+    <label>
+      City*
+      <input type="text" pInputText formControlName="city" maxlength="60" />
+    </label>
+
+    <label>
+      Street
+      <input type="text" pInputText formControlName="streetName" />
+    </label>
+
+    <label>
+      Number
+      <input type="text" pInputText formControlName="streetNumber" />
+    </label>
+
+    <label>
+      Postal code
+      <input type="text" pInputText formControlName="postalCode" />
+    </label>
+  </div>
+
+  <label>
+    Function
+    <p-dropdown
+      [options]="functionList"
+      [style]="{'width':'100%'}"
+      formControlName="function"
+      placeholder="Select a function"
+    ></p-dropdown>
+  </label>
+
+  <div>
+    <p-button label="Cancel" (onClick)="cancel()" styleClass="ui-button-secondary"></p-button>
+    <p-button label="Save" (onClick)="save($event)"></p-button>
+  </div>
+
+</form>

@@ -4,9 +4,9 @@ import { LOCATION_FUNCTION } from '../constant/location-function';
 
 export interface ILocation {
   address: IAddress;
-  id: number;
   coordinates: IGeographicCoordinates;
   function?: LOCATION_FUNCTION;
+  id: number;
   name: string;
   normalizedName: string;
   resourceId: string;

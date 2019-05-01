@@ -18,6 +18,8 @@ export class LocationService {
   ) { }
 
   add(location: ILocation): Observable<ILocation> {
+    console.log(location);
+
     return this.http.post<ILocation>(`${this.server}`, location)
       .pipe(
         map(this.mapLocationId),
@@ -40,7 +42,12 @@ export class LocationService {
   }
 
   update(location: ILocation): Observable<ILocation> {
-    return this.http.put<ILocation>(`${this.server}/${location.id}`, location)
+    const id = parseInt(location.resourceId.replace(/.+\/(\d+)$/g, '$1'), 10);
+    delete location.id;
+    delete location.resourceId;
+    delete location.version;
+
+    return this.http.put<ILocation>(`${this.server}/${id}`, location)
       .pipe(
         map(this.mapLocationId),
         catchError(this.errorHandler)
