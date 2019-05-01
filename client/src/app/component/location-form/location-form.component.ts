@@ -31,10 +31,8 @@ export class LocationFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-    this.location = this.config.data.location;
-
-    if (this.location) {
+    if (this.config.data && this.config.data.location) {
+      this.location = this.config.data.location;
       this.updateMode = true;
     }
 

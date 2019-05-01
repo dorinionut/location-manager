@@ -6,7 +6,7 @@ export interface ILocation {
   address: IAddress;
   coordinates: IGeographicCoordinates;
   function?: LOCATION_FUNCTION;
-  id: number;
+  id?: number;
   name: string;
   normalizedName: string;
   resourceId: string;

@@ -11,7 +11,7 @@ import { environment } from '@env/environment';
 })
 export class LocationService {
 
-  private server = `${environment.host}/api/locations`;
+  public server = `${environment.host}/api/locations`;
 
   constructor(
     private http: HttpClient
@@ -33,7 +33,7 @@ export class LocationService {
   }
 
   search(params?: ISearchParams): Observable<ILocation[]> {
-    return this.http.get<ILocation[]>(`${this.server}/`, {params})
+    return this.http.get<ILocation[]>(`${this.server}`, {params})
       .pipe(
         map(result => result.map(location => this.mapLocationId(location))),
         catchError(this.errorHandler));
@@ -50,7 +50,7 @@ export class LocationService {
       );
   }
 
-  private errorHandler(error: HttpErrorResponse) {
+  errorHandler(error: HttpErrorResponse) {
     return throwError(error);
   }
 
